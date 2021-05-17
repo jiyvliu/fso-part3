@@ -4,13 +4,12 @@ const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
 const Person = require('./models/person')
-const { response } = require('express')
 
 app.use(express.static('build'))
 app.use(express.json())
 app.use(cors())
 
-morgan.token('post-content', (req, res) => {
+morgan.token('post-content', (req) => {
   const body = req.body
 
   if (body) {
@@ -20,13 +19,13 @@ morgan.token('post-content', (req, res) => {
 
 app.use(morgan(':method :url :res[content-length] - :response-time ms :post-content'))
 
-app.get('/api/persons', (req, res, next) => {
+app.get('/api/persons', (req, res) => {
   Person.find({}).then(result => {
     res.json(result)
   })
 })
 
-app.get('/info', (req, res, next) => {
+app.get('/info', (req, res) => {
   Person.find({})
     .then(result => {
       res.send(`<div> Phonebook has info for ${result.length} people </div>
@@ -45,7 +44,7 @@ app.get('/api/persons/:id', (req, res, next) => {
 
 app.delete('/api/persons/:id', (req, res, next) => {
   Person.findByIdAndDelete(req.params.id)
-    .then(result => {
+    .then(() => {
       res.status(204).end()
     })
     .catch(error => next(error))
