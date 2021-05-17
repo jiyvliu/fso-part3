@@ -1,7 +1,7 @@
 GET http://localhost:3001/api/persons
 
 ###
-DELETE http://localhost:3001/api/persons/4
+DELETE http://localhost:3001/api/persons/60a1bca94cc5350ed2d55348
 
 ###
 POST http://localhost:3001/api/persons
@@ -9,5 +9,5 @@ Content-Type: application/json
 
 {
   "name": "jimbo",
-  "number": "12312321"
+  "number": "1232124123231"
 }
